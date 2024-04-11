@@ -14,9 +14,23 @@ namespace DesafioFundamentos.Models
 
         public void AdicionarVeiculo()
         {
-            // TODO: Pedir para o usuário digitar uma placa (ReadLine) e adicionar na lista "veiculos"
-            // *IMPLEMENTE AQUI*
-            Console.WriteLine("Digite a placa do veículo para estacionar:");
+            bool validadorPlaca = true;
+
+            while (validadorPlaca)
+            {
+                Console.WriteLine("Digite a placa do veículo para estacionar:");
+                string placa = Console.ReadLine();
+
+                if (placa.Length == 7)
+                {
+                    veiculos.add(placa);
+                    validadorPlaca = false;
+                }
+                else
+                {
+                    Console.WriteLine($"ERRO: A placa deve possuir 7 digitos e foi informado {placa.Length}. Tente Novamente!\n");
+                }
+            }
         }
 
         public void RemoverVeiculo()

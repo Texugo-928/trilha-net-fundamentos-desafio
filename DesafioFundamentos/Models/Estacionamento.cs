@@ -19,7 +19,7 @@ namespace DesafioFundamentos.Models
             while (validadorPlaca)
             {
                 Console.WriteLine("Digite a placa do veículo para estacionar:");
-                string placa = Console.ReadLine();
+                string placa = Console.ReadLine().ToUpper();
 
                 if (placa.Length == 7)
                 {
@@ -38,22 +38,34 @@ namespace DesafioFundamentos.Models
             Console.WriteLine("Digite a placa do veículo para remover:");
 
             // Pedir para o usuário digitar a placa e armazenar na variável placa
-            // *IMPLEMENTE AQUI*
             string placa = "";
+            placa = Console.ReadLine().ToUpper(); 
 
             // Verifica se o veículo existe
-            if (veiculos.Any(x => x.ToUpper() == placa.ToUpper()))
+            if (veiculos.Any(x => x == placa))
             {
-                Console.WriteLine("Digite a quantidade de horas que o veículo permaneceu estacionado:");
-
-                // TODO: Pedir para o usuário digitar a quantidade de horas que o veículo permaneceu estacionado,
-                // TODO: Realizar o seguinte cálculo: "precoInicial + precoPorHora * horas" para a variável valorTotal                
-                // *IMPLEMENTE AQUI*
                 int horas = 0;
-                decimal valorTotal = 0; 
+                decimal valorTotal = 0;
+                bool validadorConversao = true;
 
-                // TODO: Remover a placa digitada da lista de veículos
-                // *IMPLEMENTE AQUI*
+                while (validadorConversao)
+                {
+                    Console.WriteLine("Digite a quantidade de horas que o veículo permaneceu estacionado:");
+                    string console = Console.ReadLine();
+                    
+                    bool retorno = int.TryParse(console, out horas);
+                    
+                    validadorConversao = !retorno;
+
+                    if (validadorConversao)
+                    {
+                        Console.WriteLine($"ERRO: Não foi possivel converter o valor {console} para inteiro. Tente Novamente! \n");
+                    }
+                }
+
+                valorTotal = precoInicial + precoPorHora * horas;
+
+                veiculos.Remove(placa);
 
                 Console.WriteLine($"O veículo {placa} foi removido e o preço total foi de: R$ {valorTotal}");
             }
